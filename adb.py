@@ -3,7 +3,7 @@ from PIL import Image
 
 def connect_device():
     adb = AdbClient(host="127.0.0.1", port=5037)
-    adb.remote_connect("192.168.1.12", 5555)
+    adb.remote_connect("192.168.1.21", 5555)
     devices = adb.devices()
 
     if len(devices) == 0:
