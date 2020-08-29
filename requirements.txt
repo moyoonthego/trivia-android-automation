@@ -1,0 +1,12 @@
+pure-python-adb
+Pillow
+pytesseract
+progress
+re
+time
+random
+
+
+------------------
+Tesseract OCR
+An android emulator if you don't want to give up your phone to farming lol
