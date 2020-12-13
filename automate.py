@@ -74,17 +74,22 @@ def getanswer(device, questionText):
         temp = grayscaleimg.crop(myCurOptions[choices[i]]).convert('RGB')
         response = pytesseract.image_to_string(temp)
         if myQuestions[questionText] in response:
-            print("The found answer is:")
-            print(response)
+            print("found answer:       " + response)
             device.shell(f'input tap {myButtons[choices[i]][0]} {myButtons[choices[i]][1]}')
             device.shell(f'input tap {myButtons[choices[i]][0]} {myButtons[choices[i]][1]}')
-            break
+            return
+    # We give up, just click an option below
+    print("deleting saved answer :(")
+    del myQuestions[questionText]
+    device.shell(f'input tap {myButtons[choices[2]][0]} {myButtons[choices[2]][1]}')
+    checkanswerstatus(device, choices, questionText)
     
 
     
 
 def process_question(device):
     # Take Screenshot of the screen and save it in screen.png, crop, get question text
+    time.sleep(0.3)
     adb.take_screenshot(device)
     questionimage = Image.open('screen.png')
     questionText = re.sub('\s+',' ', pytesseract.image_to_string(questionimage.crop(questionbox))).lstrip().strip()
@@ -117,7 +122,11 @@ if __name__ == "__main__":
 
     # run for 200 points straight
     for i in range(0,10001):
+<<<<<<< Updated upstream
         time.sleep(1)
+=======
+        time.sleep(0.1)
+>>>>>>> Stashed changes
         process_question(device)
         # save to JSON every 25 questions
         if (i % 50 == 0 and i != 0):
